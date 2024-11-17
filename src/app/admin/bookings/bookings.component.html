@@ -1,0 +1,169 @@
+<section>
+  <div class="search-box">
+    <input
+      type="text"
+      class="admin-search"
+      placeholder="Search bookings"
+      (input)="searchBookings($event)"
+      #searchInput
+    />
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </div>
+  <button
+    type="button"
+    class="secondary-button"
+    uk-toggle="target: #booking-modal"
+  >
+    <i class="fa-solid fa-plus"></i>Add Booking
+  </button>
+  <div
+    *ngIf="filteredBookings && filteredBookings.length > 0"
+    class="table-container"
+  >
+    <table>
+      <thead>
+        <tr>
+          <th>S No.</th>
+          <th>Booked by</th>
+          <th>Date</th>
+          <th>Time Slot</th>
+          <th>Seat No.</th>
+          <th>Booked For</th>
+          <th>Paid Amount</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of filteredBookings; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <a [routerLink]="'/admin/users/' + booking.userId">{{
+              bookingNames[booking.userId]
+            }}</a>
+          </td>
+
+          <td>
+            {{
+              booking.date.toDate().toLocaleDateString("en-us", {
+                year: "numeric",
+                month: "long",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit"
+              })
+            }}
+          </td>
+          <td>{{ booking.timeSlot }}</td>
+          <td>{{ booking.seatNo }}</td>
+          <td>{{ booking.bookedFor }}</td>
+          <td>{{ booking.paidAmount }}</td>
+          <td>
+            <div *ngIf="booking.status != 'Cancelled'" class="buttons">
+              <button
+                (click)="editBooking(booking)"
+                uk-toggle="target: #booking-modal"
+              >
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button
+                (click)="bookingToCancel = booking"
+                uk-toggle="target: #delete-confirm-modal"
+                class="cancel-button"
+              >
+                Cancel
+              </button>
+            </div>
+            <div
+              *ngIf="booking.status == 'Cancelled'"
+              class="cancelled-booking"
+            >
+              Cancelled
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <mat-paginator
+        *ngIf="!searchInput.value && bookings.length > 0"
+        [length]="bookings.length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[2, 5, 10, 20, 30, 40, 50, 100, 500]"
+        aria-label="Select page"
+        #paginator
+      >
+      </mat-paginator>
+    </div>
+  </div>
+  <p
+    *ngIf="!filteredBookings || filteredBookings.length === 0"
+    id="no-bookings"
+  >
+    No bookings
+  </p>
+</section>
+
+<div
+  id="booking-modal"
+  (beforeshow)="loadUsersAndSeats()"
+  (hidden)="resetBookingModal()"
+  uk-modal
+>
+  <div class="uk-modal-dialog uk-modal-body">
+    <h2 class="uk-modal-title">{{ bookingToEdit ? "Edit" : "Add" }} Booking</h2>
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <form [formGroup]="bookingForm" (ngSubmit)="submit()">
+      <div class="form-box">
+        <label for="booking-for-input">Booking By</label>
+        <select id="booking-for-input" formControlName="userId">
+          <option [ngValue]="null" disabled>Select</option>
+          <option *ngFor="let user of allUsers" [ngValue]="user.id">
+            {{ user.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-box">
+        <label for="date-input">Date</label>
+        <input type="date" id="date-input" formControlName="date" />
+      </div>
+      <div class="form-box">
+        <label for="time-slot-input">Time Slot</label>
+        <select id="time-slot-input" formControlName="timeSlot">
+          <option [ngValue]="null" disabled>Select</option>
+          <option>10am to 2pm</option>
+          <option>3pm to 7pm</option>
+          <option>7pm to 11pm</option>
+        </select>
+      </div>
+      <div class="form-box">
+        <label for="booking-for-input">Booking For</label>
+        <select id="booking-for-input" formControlName="bookedFor">
+          <option [ngValue]="null" disabled>Select</option>
+          <option>Day</option>
+          <option>Month</option>
+          <option>Year</option>
+        </select>
+      </div>
+      <div class="form-box">
+        <label for="seat-number-input">Seat Number</label>
+        <select id="seat-number-input" formControlName="seatNo">
+          <option [ngValue]="null" disabled>Select</option>
+          <option *ngFor="let seatNo of seatNos">{{ seatNo }}</option>
+        </select>
+      </div>
+      <div class="form-box">
+        <label for="amount-input">Payable Amount</label>
+        <input type="number" id="amount-input" formControlName="paidAmount" />
+      </div>
+      <button type="submit" id="submit-button" [disabled]="!bookingForm.valid">
+        {{ bookingToEdit ? "Edit" : "Add" }} Booking
+      </button>
+    </form>
+  </div>
+</div>
+
+<app-confirm-delete-modal
+  text="Are you sure you want to cancel this booking?"
+  (confirm)="cancelBooking()"
+  (hidden)="bookingToCancel = null"
+></app-confirm-delete-modal>

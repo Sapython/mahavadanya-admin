@@ -1,0 +1,98 @@
+<section>
+  <h2>
+    Welcome back{{
+      dataProvider.userData?.name ? ", " + dataProvider.userData!.name : ""
+    }}!
+  </h2>
+  <p id="subheading">Here are {{ currentMonth }}'s statistics 📈</p>
+  <div id="stats">
+    <div class="stat-card">
+      <div class="stat-text">
+        <h3>New Users</h3>
+        <p>
+          <span>{{ stats && stats.users ? stats.users : 0 }}</span>
+          <span
+            *ngIf="rates && rates.users"
+            [class]="{
+              rate: true,
+              gain: rates.users >= 0,
+              loss: rates.users < 0
+            }"
+            >{{ rates.users }}%</span
+          >
+        </p>
+      </div>
+      <div class="stat-icon"><i class="fa-solid fa-user-group"></i></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-text">
+        <h3>New Bookings</h3>
+        <p>
+          <span>{{ stats && stats.bookings ? stats.bookings : 0 }}</span>
+          <span
+            *ngIf="rates && rates.bookings"
+            [class]="{
+              rate: true,
+              gain: rates.bookings >= 0,
+              loss: rates.bookings < 0
+            }"
+            >{{ rates.bookings }}%</span
+          >
+        </p>
+      </div>
+      <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-text">
+        <h3>Earnings</h3>
+        <span>{{ stats && stats.earnings ? stats.earnings : 0 }}</span>
+        <span
+          *ngIf="rates && rates.earnings"
+          [class]="{
+            rate: true,
+            gain: rates.earnings >= 0,
+            loss: rates.earnings < 0
+          }"
+          >{{ rates.earnings }}%</span
+        >
+      </div>
+      <div class="stat-icon"><i class="fa-solid fa-sack-dollar"></i></div>
+    </div>
+  </div>
+  <div id="bookings">
+    <div id="bookings-graph-container">
+      <h3>Booking Activity</h3>
+      <canvas id="bookings-graph"></canvas>
+    </div>
+    <div id="users">
+      <div id="active-users">
+        <h3>Active Users</h3>
+        <ul>
+          <li *ngFor="let user of activeUsers">
+            <img src="{{ user.photoURL }}" />
+            <p>{{ user.name }}</p>
+          </li>
+        </ul>
+      </div>
+      <!-- <div id="recent-bookings">
+        <h3>Recent Bookings</h3>
+        <ul>
+          <li>
+            <img src="assets/img/circle-user-solid.svg" />
+            <p>Heena</p>
+          </li>
+          <li>
+            <img
+              src="https://images.pexels.com/photos/3992656/pexels-photo-3992656.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            />
+            <p>Naina</p>
+          </li>
+          <li>
+            <img src="assets/img/circle-user-solid.svg" />
+            <p>Kareena</p>
+          </li>
+        </ul>
+      </div> -->
+    </div>
+  </div>
+</section>

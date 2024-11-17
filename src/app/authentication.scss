@@ -1,0 +1,82 @@
+// Styles used in Sign In & Sign Up
+
+*:not(i) {
+  font-family: var(--font-one);
+}
+
+section {
+  display: flex;
+
+  #half-image {
+    width: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #container {
+    width: 50%;
+    margin-left: auto;
+
+    #logo {
+      display: block;
+      width: fit-content;
+      margin: 0.75em auto;
+    }
+
+    h1 {
+      font-size: var(--large);
+      text-align: center;
+      font-weight: 600;
+      color: var(--color-three);
+      margin: 0;
+    }
+
+    #inner-container {
+      width: 50%;
+      margin: 1em auto;
+
+      h2 {
+        font-size: var(--medium);
+        font-weight: 600;
+        color: var(--color-one);
+        margin: 0;
+      }
+    }
+
+    input,
+    button {
+      display: block;
+      outline: none;
+      width: 100%;
+      margin: 1em 0;
+      padding: 0.5em 1em;
+      border-radius: 5px;
+    }
+
+    input {
+      background-color: var(--color-seven);
+      border: none;
+      color: var(--color-eight);
+      width: 100%;
+    }
+  }
+}
+
+
+// responsive
+
+
+@media  (max-width:870px){
+
+
+  #half-image {
+  display: none;
+}
+#container{
+  min-width: -webkit-fill-available;
+ }
+
+}

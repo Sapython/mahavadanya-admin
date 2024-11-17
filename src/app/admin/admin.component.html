@@ -1,0 +1,108 @@
+<div id="wrapper">
+  <div id="sidebar-container">
+    <aside>
+      <div>
+        <img src="assets/img/logo.png" alt="Mahavadanya Logo" />
+        <h1>Mahavadanya Admin</h1>
+      </div>
+      <ul>
+        <li>
+          <a routerLink="/admin/dashboard" routerLinkActive="active"
+            ><i class="fa-solid fa-house"></i>Dashboard</a
+          >
+        </li>
+        <li>
+          <a routerLink="/admin/profile" routerLinkActive="active"
+            ><i class="fa-solid fa-user"></i>Profile</a
+          >
+        </li>
+        <li>
+          <a routerLink="/admin/users" routerLinkActive="active"
+            ><i class="fa-solid fa-user-group"></i>Users</a
+          >
+        </li>
+        <li>
+          <a routerLink="/admin/bookings" routerLinkActive="active"
+            ><i class="fa-solid fa-calendar-check"></i>Bookings</a
+          >
+        </li>
+        <li>
+          <a routerLink="/admin/statistics" routerLinkActive="active"
+            ><i class="fa-solid fa-chart-simple"></i>Statistics</a
+          >
+        </li>
+        <li>
+          <a routerLink="/admin/subscription" routerLinkActive="active"
+            ><i class="fa-solid fa-id-badge"></i>Subscription</a
+          >
+        </li>
+        <li>
+          <a routerLink="/admin/slotSheet" routerLinkActive="active"
+            ><i class="fa-solid fa-id-badge"></i>Slot</a
+          >
+        </li>
+      </ul>
+    </aside>
+  </div>
+  <main>
+    <header>
+      <div>
+        <button  uk-toggle="target: #notification-modal"><i class="fa-{{ notificationIcon }} fa-bell"></i></button>
+        <div uk-dropdown="mode: click" id="notification-dropdown">
+          <ul>
+            <li *ngFor="let notification of notifications">
+              {{ notification }}
+            </li>
+            <li
+              *ngIf="!notifications || notifications.length === 0"
+              id="no-notifications"
+            >
+              No notifications
+            </li>
+          </ul>
+        </div>
+      </div>
+      <button id="profile-button" routerLink="/admin/profile">
+        {{ dataProvider.userData?.name
+        }}<img
+          [src]="
+            dataProvider.userData?.photoURL ||
+            'assets/img/circle-user-solid.svg'
+          "
+        />
+      </button>
+    </header>
+    <div id="notification-modal" uk-modal>
+      <div class="uk-modal-dialog uk-modal-body">
+     <b style=" color: var(--color-one);">Notifications</b>
+  
+     
+        <div  [class]="{ notification: true, new:!notification.read }" *ngFor="let notification of notifications" [routerLink]="notification.link" (click)="closeModal()">
+          
+          {{notification.message}}
+        <h6>{{notification.timestamp.toDate().toLocaleDateString("en-us", {
+          year: "numeric",
+          month: "long",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit"
+        })}} </h6>  
+        <div class="unread"></div> 
+        </div >
+        <!-- <div  class="notification">Lorem ipsum dolor sit amet consectetur. </div >
+        <div  class="notification">Lorem ipsum dolor sit a.</div >
+          <div  class="notification">Lorem ipsum dolor, sit amets</div >
+            <div  class="notification">Lorem ipsum dolor sit.</div >
+            <div  class="notification">Lorem ipsum dolor sit amet consectetur.</div >
+            <div  class="notification">Lorem ipsum dolor sit a.</div >
+              <div  class="notification">Lorem ipsum dolor, sit amets</div >
+                <div  class="notification">Lorem ipsum dolor sit.</div >
+                <div  class="notification">Lorem ipsum dolor sit amet consectetur.</div >
+                <div  class="notification">Lorem ipsum dolor sit a.</div >
+            
+     -->
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -1,0 +1,136 @@
+<!-- <section class="example-container mat-elevation-z8" tabindex="0">
+  <table mat-table [dataSource]="dataSource" style="width: 100%; overflow: auto;">
+
+
+    <ng-container matColumnDef="name" sticky>
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="mobile" sticky>
+      <th mat-header-cell *matHeaderCellDef> Mobile. </th>
+      <td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date" sticky>
+      <th mat-header-cell *matHeaderCellDef> date </th>
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="BlockA21">
+      <th mat-header-cell *matHeaderCellDef> Block A-21 </th>
+      <td mat-cell *matCellDef="let element"> {{element.BlockA21}} </td>
+    </ng-container>
+    <ng-container matColumnDef="BlockA22">
+      <th mat-header-cell *matHeaderCellDef> Block A-22 </th>
+      <td mat-cell *matCellDef="let element"> {{element.BlockA22}} </td>
+    </ng-container>
+    <ng-container matColumnDef="BlockA23">
+      <th mat-header-cell *matHeaderCellDef> Block A-23 </th>
+      <td mat-cell *matCellDef="let element"> {{element.BlockA23}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="BlockB24">
+      <th mat-header-cell *matHeaderCellDef> Block B-24 </th>
+      <td mat-cell *matCellDef="let element"> {{element.BlockB24}} </td>
+    </ng-container>
+    <ng-container matColumnDef="BlockB25">
+      <th mat-header-cell *matHeaderCellDef> Block B-25 </th>
+      <td mat-cell *matCellDef="let element"> {{element.BlockB25}} </td>
+    </ng-container>
+    <ng-container matColumnDef="BlockB26">
+      <th mat-header-cell *matHeaderCellDef> Block B-26 </th>
+      <td mat-cell *matCellDef="let element"> {{element.BlockB26}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="BlockC27">
+      <th mat-header-cell *matHeaderCellDef> Block C-27 </th>
+      <td mat-cell *matCellDef="let element"> {{element.BlockC27}} </td>
+    </ng-container>
+    <ng-container matColumnDef="BlockC28">
+      <th mat-header-cell *matHeaderCellDef> Block C-28 </th>
+      <td mat-cell *matCellDef="let element"> {{element.BlockC28}} </td>
+    </ng-container>
+    <ng-container matColumnDef="BlockC29">
+      <th mat-header-cell *matHeaderCellDef> Block C-29 </th>
+      <td mat-cell *matCellDef="let element"> {{element.BlockC29}} </td>
+    </ng-container>
+
+
+   
+
+
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef> Symbol </th>
+      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="star" stickyEnd>
+      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon>more_vert</mat-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</section> -->
+
+
+<div class="sticky-container">
+  <table class="sticky-table">
+    <thead>
+      <tr>
+        <th *ngFor="let theadData of displayedColumns">{{theadData}}</th>
+        <th></th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let theadData of trData">
+  
+        <td >
+          {{theadData.name}}
+        </td>
+        <td >
+          {{theadData.mobile}}
+        </td>
+        <td >
+          {{theadData.date}}
+        </td>
+        <td >
+          {{theadData.BlockA21}}
+        </td>
+        <td >
+          {{theadData.BlockA22}}
+        </td>
+        <td >
+          {{theadData.BlockA23}}
+        </td>
+        <td >
+          {{theadData.BlockB24}}
+        </td>
+        <td >
+          {{theadData.BlockB25}}
+        </td>
+        <td >
+          {{theadData.BlockB26}}
+        </td>
+        <td >
+          {{theadData.BlockC27}}
+        </td>
+        <td >
+          {{theadData.BlockC28}}
+        </td>
+        <td >
+          {{theadData.BlockC29}}
+        </td>
+
+      </tr>
+      
+    </tbody>
+  </table>
+</div>

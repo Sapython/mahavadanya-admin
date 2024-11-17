@@ -1,0 +1,10 @@
+<div id="delete-confirm-modal" uk-modal (hidden)="hidden.emit()">
+  <div class="uk-modal-dialog uk-modal-body">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <h3>{{ text }}</h3>
+    <div id="buttons">
+      <button class="primary-btn" (click)="btnClick(true)">Yes</button>
+      <button class="primary-btn" (click)="btnClick(false)">No</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<section>
+  <img src="assets/img/1.png" id="half-image" />
+  <div id="container">
+    <img src="assets/img/logo.png" alt="" id="logo" />
+    <h1>Mahavadnya</h1>
+    <div id="inner-container">
+      <h2>Sign In</h2>
+      <form [formGroup]="signInForm" (ngSubmit)="submit()">
+        <input type="email" formControlName="email" placeholder="Email" />
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Password"
+        />
+        <button type="submit" class="button">Sign In</button>
+      </form>
+      <button
+        type="button"
+        class="button"
+        (click)="this.authService.signInWithGoogle()"
+      >
+        <i class="fa-brands fa-google"></i>Sign In with Google
+      </button>
+      <button class="button-link" type="button" routerLink="../forgot-password" [queryParams]="{redirect:redirect}">
+        Forgot Your Password?
+      </button>
+
+      <button class="button-link" type="button" routerLink="../sign-up">
+        Don't have an account? Sign Up
+      </button>
+    </div>
+  </div>
+</section>

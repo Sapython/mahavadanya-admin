@@ -1,0 +1,61 @@
+section {
+  #edit-button,
+  #cancel-button {
+    background: none;
+    font-family: var(--font-one);
+    font-size: var(--xsmall);
+    color: var(--color-eight);
+    border: none;
+    cursor: pointer;
+    transition: all 0.5s;
+
+    &:hover {
+      color: var(--color-one);
+    }
+  }
+
+  #buttons {
+    width: fit-content;
+    margin-left: auto;
+
+    #save-button {
+      background-color: var(--color-one);
+      font-family: var(--font-one);
+      font-size: var(--xsmall);
+      color: var(--color-four);
+      border: none;
+      cursor: pointer;
+      transition: all 0.5s;
+      padding: 0.5em 1em;
+      border-radius: var(--normal-radius);
+      margin-right: 1em;
+
+      &:hover {
+        box-shadow: var(--normal-shadow);
+      }
+    }
+  }
+}
+
+
+
+
+h2 {
+  font-family: var(--font-one);
+  font-size: var(--small);
+  font-weight: 700;
+  color: var(--color-ten);
+  margin: 1.25em 0 0 0;
+}
+
+table {
+  min-width: 1000px;
+  margin-top: .5em;
+}
+
+#no-bookings {
+  font-size: var(--msmall);
+  font-family: var(--font-one);
+  color: var(--color-eight);
+  margin: 0;
+}

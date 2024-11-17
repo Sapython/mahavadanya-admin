@@ -1,0 +1,126 @@
+<section>
+  <div class="search-box">
+    <input
+      type="text"
+      class="admin-search"
+      placeholder="Search user"
+      (input)="searchUsers($event)"
+      #searchInput
+    />
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </div>
+  <button
+    type="button"
+    class="secondary-button"
+    uk-toggle="target: #user-modal"
+  >
+    <i class="fa-solid fa-plus"></i>Add User
+  </button>
+  <div
+    *ngIf="filteredUsers && filteredUsers.length > 0"
+    class="table-container"
+  >
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 8%">S. No.</th>
+          <th style="width: 22%">Name</th>
+          <th style="width: 15%">Phone</th>
+          <th style="width: 10%">Bookings</th>
+          <th style="width: 20%">Last Booking</th>
+          <th style="width: 15%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredUsers; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>
+            <span>{{ user.name }}</span>
+            <span *ngIf="user.activeNow" class="active-now">Active</span>
+          </td>
+          <td>{{ user.phone }}</td>
+          <td>{{ user.totalBookings }}</td>
+          <td>{{ user.lastBooking?.toDate() }}</td>
+          <td>
+            <div class="buttons">
+              <button [routerLink]="user.id">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+              <button  (click)="userToDelete = user"
+              uk-toggle="target: #delete-confirm-modal"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <mat-paginator
+        *ngIf="!searchInput.value && totalUsers > 0"
+        [length]="totalUsers"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[10, 20, 30, 40, 50, 100, 500]"
+        (page)="getUsers($event)"
+        aria-label="Select page"
+        #paginator
+      >
+      </mat-paginator>
+    </div>
+  </div>
+  <p *ngIf="!filteredUsers || filteredUsers.length === 0" id="no-users">
+    No users found
+  </p>
+</section>
+
+<div id="user-modal" (hidden)="resetSubscriptionModal()" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body">
+    <h2 class="uk-modal-title">{{ userToEdit ? "Edit" : "Add" }} User</h2>
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <form [formGroup]="userForm" (ngSubmit)="submit()">
+      <div class="form-box">
+        <label for="plan-name-input"> Name</label>
+        <input type="text" id="plan-name-input" formControlName="name" />
+      </div>
+      <div class="form-box">
+        <label for="avatar">Photo</label>
+        <input
+          type="file"
+          id="user-photo"
+          (change)="validatePhotos($event)"
+        />
+      </div>
+      <div class="form-box">
+        <label for="plan-name-input"> DOB</label>
+        <input type="date" id="plan-name-input" formControlName="dob" />
+      </div>
+      <div class="form-box">
+        <label for="plan-name-input"> Email</label>
+        <input type="email" id="plan-name-input" formControlName="email" />
+      </div>
+
+      <div class="form-box">
+        <label for="plan-name-input"> Phone Number</label>
+        <input type="text" id="plan-name-input" formControlName="phone" />
+      </div>
+      <div class="form-box">
+        <label for="plan-name-input"> Address</label>
+        <input type="text" id="plan-name-input" formControlName="address" />
+      </div>
+      <div class="form-box">
+        <label for="plan-name-input"> Account No</label>
+        <input type="text" id="plan-name-input" formControlName="accountNo" />
+      </div>
+      <div class="form-box">
+        <label for="plan-name-input"> IFSC Code</label>
+        <input type="text" id="plan-name-input" formControlName="ifscCode" />
+      </div>
+
+      <button type="submit" id="submit-button" [disabled]="!userForm.valid">
+        {{ userToEdit ? "Edit" : "Add" }} User
+      </button>
+    </form>
+  </div>
+</div>
+<app-confirm-delete-modal
+  (confirm)="deleteUser()"
+  (hidden)="userToDelete = null"
+></app-confirm-delete-modal>

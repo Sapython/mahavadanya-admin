@@ -1,0 +1,121 @@
+<section>
+  <div class="top">
+    <h2>Subscription Plans</h2>
+    <button
+      type="button"
+      class="secondary-button"
+      uk-toggle="target: #subscription-modal"
+    >
+      <i class="fa-solid fa-plus"></i>Add Plan
+    </button>
+  </div>
+  <div class="main-container">
+    <div *ngFor="let plan of subscriptionPlans" class="sub-container">
+      <div>
+        <h3>{{ plan.timePeriod }}<br />₹{{ plan.price }}</h3>
+        <div class="list">
+          <p class="feature" *ngFor="let feature of plan.features">
+            <i class="fa-solid fa-check"></i>
+            <span class="feature-text">{{ feature }}</span>
+          </p>
+          <p class="feature" *ngFor="let feature of plan.missingFeatures">
+            <i class="fa-solid fa-xmark"></i>
+            <span class="feature-text">{{ feature }}</span>
+          </p>
+        </div>
+      </div>
+      <div>
+        <div class="buttons">
+          <button
+            uk-toggle="target: #subscription-modal"
+            (click)="editPlan(plan)"
+          >
+            <i class="fa-solid fa-pen-to-square"></i>Edit
+          </button>
+          <button
+            uk-toggle="target: #delete-confirm-modal"
+            (click)="planToDelete = plan"
+          >
+            <i class="fa-solid fa-trash"></i>Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="subscription-modal" (hidden)="resetSubscriptionModal()" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body">
+    <h2 class="uk-modal-title">
+      {{ planToEdit ? "Edit" : "Add" }} Subscription Plan
+    </h2>
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <form [formGroup]="subscriptionForm" (ngSubmit)="submit()">
+      <div class="form-box">
+        <label for="plan-name-input">Plan Name</label>
+        <input type="text" id="plan-name-input" formControlName="timePeriod" />
+      </div>
+      <div class="form-box">
+        <label for="price-input">Price</label>
+        <div id="price-container">
+          <div id="currency-symbol">₹</div>
+          <input type="number" id="price-input" formControlName="price" />
+        </div>
+      </div>
+      <div class="form-box">
+        <label>Features</label>
+        <div *ngIf="subscriptionForm.get('features')" formArrayName="features">
+          <div
+            *ngFor="let feature of getFeatureControls(); let i = index"
+            class="feature"
+          >
+            <i class="fa-solid fa-check"></i>
+            <input type="text" class="feature" [formControlName]="i" />
+            <i class="fa-solid fa-trash" (click)="deleteFeature(feature)"></i>
+          </div>
+        </div>
+        <button type="button" class="secondary-button" (click)="addFeature()">
+          <i class="fa-solid fa-plus"></i>Add Feature
+        </button>
+      </div>
+      <div class="form-box">
+        <label>Missing Features</label>
+        <div
+          *ngIf="subscriptionForm.get('missingFeatures')"
+          formArrayName="missingFeatures"
+        >
+          <div
+            *ngFor="let feature of getMissingFeatureControls(); let i = index"
+            class="feature"
+          >
+            <i class="fa-solid fa-xmark"></i>
+            <input type="text" class="feature" [formControlName]="i" />
+            <i
+              class="fa-solid fa-trash"
+              (click)="deleteMissingFeature(feature)"
+            ></i>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="addMissingFeature()"
+        >
+          <i class="fa-solid fa-plus"></i>Add Missing Feature
+        </button>
+      </div>
+      <button
+        type="submit"
+        id="submit-button"
+        [disabled]="!subscriptionForm.valid"
+      >
+        {{ planToEdit ? "Edit" : "Add" }} Plan
+      </button>
+    </form>
+  </div>
+</div>
+
+<app-confirm-delete-modal
+  (confirm)="deletePlan()"
+  (hidden)="planToDelete = ''"
+></app-confirm-delete-modal>

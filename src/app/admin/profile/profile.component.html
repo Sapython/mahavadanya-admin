@@ -1,0 +1,167 @@
+<section>
+  <ng-container *ngIf="!editMode; else editContainer">
+    <div id="profile-top">
+      <div id="profile-photo-container">
+        <div id="profile-photo">
+          <img
+            [src]="
+              dataProvider.userData?.photoURL ||
+              'assets/img/circle-user-solid.svg'
+            "
+            alt="Profile Photo"
+          />
+        </div>
+      </div>
+      <div>
+        <h2>
+          {{ dataProvider.userData?.name || "N/A"
+          }}<span id="access-badge">{{
+            dataProvider.userData?.access?.toUpperCase()
+          }}</span>
+        </h2>
+        <button (click)="goToEditMode()" id="edit-button">
+          <i class="fa-solid fa-pen-to-square"></i> Edit Profile
+        </button>
+      </div>
+    </div>
+    <div id="profile-details">
+      <p class="detail">
+        <span class="key">Email: </span>
+        <span class="value"
+          >{{ dataProvider.userData?.email || "N/A" }}
+          <span
+            *ngIf="dataProvider.userData?.emailVerified; else emailUnverified"
+            id="email-verified"
+            ><i class="fa-solid fa-circle-check"></i> Verified</span
+          >
+          <ng-template #emailUnverified
+            ><span id="email-unverified"
+              ><i class="fa-solid fa-circle-xmark"></i> Not Verified</span
+            ></ng-template
+          >
+        </span>
+      </p>
+      <p class="detail">
+        <span class="key">Phone: </span>
+        <span class="value">{{ dataProvider.userData?.phone || "N/A" }}</span>
+      </p>
+      <p class="detail">
+        <span class="key">Date of Birth: </span>
+        <span class="value">{{
+          dataProvider.userData?.dob?.toDate()?.toLocaleDateString("en-us", {
+            year: "numeric",
+            month: "long",
+            day: "2-digit"
+          }) || "N/A"
+        }}</span>
+      </p>
+      <p class="detail">
+        <span class="key">Address: </span>
+        <span class="value">{{ dataProvider.userData?.address || "N/A" }}</span>
+      </p>
+      <p class="detail">
+        <span class="key">Account No.: </span>
+        <span class="value">{{
+          dataProvider.userData?.accountNo || "N/A"
+        }}</span>
+      </p>
+      <p class="detail">
+        <span class="key">IFSC Code: </span>
+        <span class="value">{{
+          dataProvider.userData?.ifscCode || "N/A"
+        }}</span>
+      </p>
+      <p class="detail">
+        <span class="key">Account Created On: </span>
+        <span class="value">{{
+          dataProvider.userData?.created
+            ?.toDate()
+            ?.toLocaleDateString("en-us", {
+              year: "numeric",
+              month: "long",
+              day: "2-digit"
+            }) || "N/A"
+        }}</span>
+      </p>
+    </div>
+  </ng-container>
+  <ng-template #editContainer>
+    <form [formGroup]="editForm" (ngSubmit)="saveChanges()" id="profile-details">
+      <p class="detail">
+        <label for="photo-input" class="key">Change Profile Photo: </label>
+        <input
+          type="file"
+          id="photo-input"
+          class="admin-input value"
+          #photoInput
+          (change)="validateProfilePhoto()"
+        />
+      </p>
+      <p class="detail">
+        <label for="name-input" class="key">Name *: </label>
+        <input
+          type="text"
+          id="name-input"
+          class="admin-input value"
+          formControlName="name"
+        />
+      </p>
+      <p class="detail">
+        <label for="phone-input" class="key">Phone: </label>
+        <input
+          type="tel"
+          id="phone-input"
+          class="admin-input value"
+          formControlName="phone"
+        />
+      </p>
+
+      <p class="detail">
+        <label for="dob-input" class="key">Date of Birth: </label>
+        <input
+          type="date"
+          id="dob-input"
+          class="admin-input value"
+          formControlName="dob"
+        />
+      </p>
+      <p class="detail">
+        <label for="address-input" class="key">Address: </label>
+        <input
+          type="text"
+          id="address-input"
+          class="admin-input value"
+          formControlName="address"
+        />
+      </p>
+      <p class="detail">
+        <label for="account-no-input" class="key">Account No.: </label>
+        <input
+          type="text"
+          id="account-no-input"
+          class="admin-input value"
+          formControlName="accountNo"
+        />
+      </p>
+      <p class="detail">
+        <label for="ifsc-code-input" class="key">IFSC Code: </label>
+        <input
+          type="text"
+          id="ifsc-code-input"
+          class="admin-input value"
+          formControlName="ifscCode"
+        />
+      </p>
+    </form>
+    <div id="buttons">
+      <button
+        [disabled]="!editForm.valid"
+        (click)="saveChanges()"
+        id="save-button"
+      >
+        Save Changes
+      </button>
+      <button (click)="cancelEdit()" id="cancel-button">Cancel</button>
+    </div>
+  </ng-template>
+</section>

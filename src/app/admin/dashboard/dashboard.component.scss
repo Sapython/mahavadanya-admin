@@ -1,0 +1,134 @@
+section {
+  font-family: var(--font-one);
+
+  h2 {
+    font-family: var(--font-one);
+    font-size: var(--medium);
+    color: var(--color-ten);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  #subheading {
+    font-family: var(--font-one);
+    font-size: var(--small);
+    color: var(--color-eight);
+    margin: 0;
+  }
+
+  h3 {
+    font-family: var(--font-one);
+    color: var(--color-five);
+    font-size: var(--small);
+    font-weight: 700;
+    margin: 0;
+  }
+
+  #stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 1em 0;
+
+    .stat-card {
+      width: 30%;
+      background-color: var(--color-twelve);
+      padding: 1em;
+      border-radius: var(--normal-radius);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      .stat-text {
+        p {
+          font-family: var(--font-one);
+          color: var(--color-eight);
+          font-size: var(--small);
+          margin: 0;
+        }
+
+        .rate {
+          font-size: var(--xsmall);
+          margin-left: 0.5em;
+
+          &.gain {
+            color: var(--color-success);
+          }
+
+          &.loss {
+            color: var(--color-danger);
+          }
+        }
+      }
+
+      .stat-icon {
+        background-color: var(--color-two);
+        color: var(--color-one);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        font-size: var(--medium);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
+  #bookings {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    h3 {
+      margin-bottom: 0.5em;
+    }
+
+    #bookings-graph-container {
+      width: 65%;
+    }
+
+    #users {
+      width: 30%;
+
+      #active-users {
+        margin-bottom: 1em;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0.5em;
+        background-color: var(--color-twelve);
+        border-radius: var(--normal-radius);
+        list-style: none;
+
+        li {
+          display: flex;
+          align-items: center;
+          padding: 0.5em;
+          border-radius: var(--normal-radius);
+          cursor: pointer;
+          transition: all 0.5s;
+
+          &:hover {
+            background-color: var(--color-four);
+          }
+
+          img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1em;
+          }
+
+          p {
+            font-family: var(--font-one);
+            color: var(--color-ten);
+            font-size: var(--xsmall);
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}

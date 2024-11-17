@@ -1,0 +1,73 @@
+:root {
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+.sticky-container {
+    width: auto;
+    // height: 190px;
+    overflow-x: scroll;
+    margin-top: 25px;
+}
+
+.sticky-table {
+    width: auto;
+    border-spacing: 0;
+
+    tr:nth-child(even) td {
+
+        background: #FFFFFF;
+        border-width: 1px 1px 1px 1px !important;
+        border-style: solid !important;
+        border-color: #DDE0E2 !important;
+    }
+
+    tr:nth-child(odd) td {
+        background: #FFFFFF;
+        border-width: 1px 1px 1px 1px !important;
+        border-style: solid !important;
+        border-color: #DDE0E2 !important;
+    }
+
+    th {
+        position: sticky;
+        top: 0;
+        background: #ccf;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        text-align: left;
+
+
+        &:first-child {
+            position: sticky;
+            left: 0;
+            width: 100px; // <-- still want this gone...
+        }
+
+        &:nth-child(2) {
+            position: sticky;
+            left: 110px;
+            // border-right: 1px solid #888;
+            min-width: 200px;
+        }
+    }
+
+    th {
+        &:nth-child(-n+2) {
+            // the two top left corner 
+            z-index: 9999;
+        }
+    }
+
+    th {
+        min-width: 200px;
+    }
+
+    table {
+        border: none !important;
+    }
+
+}

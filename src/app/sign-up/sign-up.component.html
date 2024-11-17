@@ -1,0 +1,26 @@
+<section>
+  <img src="assets/img/6.png" id="half-image" />
+  <div id="container">
+    <img src="assets/img/logo.png" alt="" id="logo" />
+    <h1>Mahavadnya</h1>
+    <div id="inner-container">
+      <h2>Sign Up</h2>
+      <form [formGroup]="signUpForm">
+        <input type="text" formControlName="name" placeholder="Name" />
+        <input type="email" formControlName="email" placeholder="Email" />
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Password"
+        />
+        <button type="submit" class="button">Sign Up</button>
+      </form>
+      <button type="button" class="button">
+        <i class="fa-brands fa-google"></i>Sign Up with Google
+      </button>
+      <button class="button-link" type="button" routerLink="../sign-in" [queryParams]="{redirect:redirect}">
+        Already have an Account? Sign In
+      </button>
+    </div>
+  </div>
+</section>
